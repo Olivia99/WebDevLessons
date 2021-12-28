@@ -1,0 +1,166 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  font-family: inter-var, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"
+}
+button{
+  color: white;
+  border-style: none;
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 544;
+
+
+}
+
+button.primary{
+      color: #FFFFFF;
+      background: #e16259;
+      border: 1px solid #be5643;
+      box-shadow: 0 1px 2px rgb(15 15 15 / 10%);
+}
+
+h1{
+    font-weight: 669px;
+    font-size: 4.4em;
+    line-height: 1.1;
+    -webkit-letter-spacing: -0.024em;
+    -moz-letter-spacing: -0.024em;
+    -ms-letter-spacing: -0.024em;
+    letter-spacing: -0.024em;
+}
+
+h2.subtitle{
+    margin: 20px 0;
+
+    font-weight: 430;
+    font-size: 17px;
+    line-height: 1.5;
+    -webkit-letter-spacing: -0.00025em;
+    -moz-letter-spacing: -0.00025em;
+    -ms-letter-spacing: -0.00025em;
+    letter-spacing: -0.00025em;
+    color: rgba(0,0,0,0.6);
+}
+
+.smallAllCaps{
+  display: block;
+    color: rgba(0,0,0,0.6);
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 1;
+    -webkit-letter-spacing: 0.06em;
+    -moz-letter-spacing: 0.06em;
+    -ms-letter-spacing: 0.06em;
+    letter-spacing: 0.06em;
+    font-weight: 544;
+    margin-bottom: 12px;
+}
+
+
+.header-nav, .main {
+  width: 98%;
+margin: 0 auto;
+max-width: 1200px;
+padding: 10px 0;
+
+
+}
+
+.header-nav{
+  width: 98%;
+margin: 0 auto;
+max-width: 1200px;
+padding: 10px 0;
+position: sticky;
+top: 0px;
+}
+
+.header-nav .logo{
+float:left;
+height: 55px;
+display: flex;
+align-items: center;
+}
+
+
+
+.header-nav .desktop{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-nav .desktop .left{
+  width: 100%;
+height: 55px;
+display: flex;
+align-items: center;
+}
+
+.header-nav .desktop .right ul{
+  display: flex;
+  align-items: center;
+
+}
+
+.header-nav .desktop .left ul li{
+  float: left;
+  list-style: none;
+  padding:0 20px;
+
+}
+
+.header-nav .desktop .right{
+  min-width: 300px;
+
+  display: flex;
+  align-items: center;
+
+}
+
+.header-nav .desktop .right ul li{
+  float: left;
+  padding: 0 8px;
+  list-style: none;
+}
+
+
+
+/* Hero section */
+.m-hero{
+  overflow: hidden;
+  zoom:1;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+}
+.text-wrap {
+  float: left;
+  width: 56%;
+  height: 100%;
+  align-items: center;
+
+
+}
+
+.visual-wrap{
+  float: right;
+  width: 44%;
+}
+
+.visual-wrap img{
+  width: 100%;
+
+}
+
+.teams-logo img{
+  height: 20px;
+}
+
+
+.trusted-wrap{
+margin-top:30px;
+}
