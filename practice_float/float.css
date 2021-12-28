@@ -1,0 +1,75 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+a{
+text-decoration: none;
+color: black;
+}
+
+body{
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.header{
+  overflow: hidden;
+  zoom:1;
+
+}
+
+.header .logo img{
+  height: 80px;
+  display: block;
+}
+
+.logo{
+  float:left;
+}
+
+.nav{
+  float:right;
+  overflow: hidden;
+  zoom:1;
+
+}
+
+.nav li{
+  float:left;
+  margin:auto 40px;
+  display: block;
+  height: 80px;
+  line-height: 80px;
+
+}
+.nav a:hover{
+  color: grey;
+}
+
+.main{
+  overflow: hidden;
+  width: 1200px;
+
+
+}
+
+.main .content{
+  width: 1000px;
+  float: left;
+  height: 500px;
+  background-color: green;
+}
+
+
+.main .sidebar{
+  float: left;
+  width: 200px;
+  height: 500px;
+  background-color: orange;
+}
+
+.footer{
+  width: 1200px;
+  height: 100px;
+  background-color: red;
+}
