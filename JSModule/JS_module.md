@@ -129,16 +129,58 @@ jsModule.reset();
 
 模块组织方式：
 ```js
+
+//引入
 const dep1= require(./dependencyModule1);
 const dep2 = require(./dependencyModule2)
 
+//处理部分
 let count = 0;
 const increase=()=> ++count;
 const reset = ()=>{
   count = 0;
 }
-
+//暴露接口部分
 exports.increase =increase;
 exports.reset = reset;
 
 ```
+模块使用方式：
+```js
+const {increase,reset} = require('./main.js');
+
+increase();
+reset();
+```
+
+**可能被问到的问题**
+
+
+
+
+<mark>实际执行处理</mark>
+
+问题 [^1]
+
+
+
+```js
+
+（function (){
+  const dep1= require(./dependencyModule1);
+  const dep2 = require(./dependencyModule2)
+
+  //业务逻辑...
+}).call(thisValue,exports,require,module);
+```
+
+> CommonJS
+* 优点：
+  1. CommonJS率先在服务端实现了，从框架层面解决依赖，全局变量污染的问题。
+* 缺点
+  1. 主要针对了服务端的解决方案（对异步拉取依赖的处理整合不是那么友好）
+* 新问题： -- 异步依赖问题
+
+
+
+[^1]: 这是一个问题 
