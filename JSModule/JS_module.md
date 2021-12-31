@@ -25,7 +25,7 @@ JS本身是简单的页面设计： 页面动画+表单提交，并无模块化 
 ##### 问题出现：
 * 污染全局作用域 ==> 不利于大型项目的开发以及多人团队的合作
 
-
+---
 #### 成长期：模块化的雏形- IIFE（语法测的优化）
 ##### 作用域的把控
 例子：
@@ -120,6 +120,7 @@ jsModule.reset();
 用revealing写法的好处：
 只是对外暴露了可被调用的接口/使用方式，并没有直接暴露算法。
 
+---
 #### 成熟期：
 ##### CJS - CommonJS
 >node.js 制定的一套方案
@@ -156,13 +157,7 @@ reset();
 **可能被问到的问题**
 
 
-
-
-<mark>实际执行处理</mark>
-
-问题 [^1]
-
-
+实际执行处理[^1]
 
 ```js
 
@@ -182,5 +177,124 @@ reset();
 * 新问题： -- 异步依赖问题
 
 
+#### AMD规范
+>通过异步加载+允许制定回调函数
+经典实现框架是：require.js
 
-[^1]: 这是一个问题 
+新增定义方式
+```js
+//通过define来定义一个模块，然后require进行加载
+/*
+define
+params：模块名，依赖模块，工厂方法
+*/
+
+define(id,[depends],callback);
+require([module],callback);
+
+```
+
+模块定义方式
+```js
+//确保当前模块是在dependecyModule 1&2（异步） 加载完后再进行
+define('amdModule',['dependencyModule1',dependencyModule2],(dependencyModule1,dependencyModule2))=>{
+  //业务逻辑
+
+  //处理部分
+  let count = 0 ;
+  const increase()=> ++count;
+  const reset()=>{
+    count=0;
+  }
+  return {
+    increase,reset
+  }
+}
+```
+
+引入模块：
+```js
+require(['amdModule'], amdModule=>{
+  amdModule.increase();
+})
+```
+
+
+
+**面试问题：如果在amdModle中想兼容已有代码，怎么办？**
+
+```js
+define(require=>{
+  //引入
+  const dep1= require(./dependencyModule1);
+  const dep2 = require(./dependencyModule2)
+
+  //处理部分
+  let count = 0;
+  const increase=()=> ++count;
+  const reset = ()=>{
+    count = 0;
+  }
+
+  return{
+   increase,reset
+  }
+})
+```
+**面试问题：AMD中使用revealing**
+
+```js
+define(‘amdModule’,[],(require,export,module)=>{
+  const dep1= require(./dependencyModule1);
+  const dep2 = require(./dependencyModule2)
+
+  //处理部分
+  let count = 0;
+  const increase=()=> ++count;
+  const reset = ()=>{
+    count = 0;
+  }
+
+export.increase = increase();
+export.reset = reset();
+});
+
+define(require=>{
+  const otherModule = require('amdModle');
+  otherModule.increase();
+  otherModule.reset();
+})
+```
+
+**面试题：兼容AMD&CommonJS //如果判断是CJS/AMD**
+umd 的出现 [^2]
+
+```js
+(define(‘amdModule’,[],(require,export,module)=>{
+  const dep1= require(./dependencyModule1);
+  const dep2 = require(./dependencyModule2)
+
+  //处理部分
+  let count = 0;
+  const increase=()=> ++count;
+  const reset = ()=>{
+    count = 0;
+  }
+
+export.increase = increase();
+export.reset = reset();
+}))(
+  //目标是一次性区分CommonJS or AMD
+  typeof module ==='object' && module.exports &&typeof define !== 'function'
+  ？ //是CommonJS
+   factory =>module.exports = factory(require,exports,module)
+   ://是AMD
+   define
+);
+
+```
+
+
+
+[^1]: 不是很理解是如何通过call来执行函数的
+[^2]: 不是很懂是如何判断的
