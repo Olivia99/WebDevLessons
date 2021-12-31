@@ -293,6 +293,171 @@ export.reset = reset();
 );
 
 ```
+>* 优点： 适合在浏览器中加载异步模块，并可以加载多个模块、
+* 缺点： 会有引入成本，不能按需加载
+
+
+#### CMD规范
+> 按需加载
+主要应用的框架 sea.js
+
+```js
+define("module",(require,exports,module)=>{
+  let $ = require('jquery');
+  //jquery 相关逻辑
+
+  let dependencyModule1 = require('dependecyModule1');
+// dependencyModule1 相关逻辑
+});
+```
+>* 优点：按需加载，依赖就近
+* 缺点：依赖于打包，加载逻辑存在于每个模块中，会扩大模块的体积
+
+
+**面试题：AMD&CMD的区别**
+答：AMD依赖就近，按需加载。 CMD是一起加载
+
+#### ES6模块化
+>走向新时代
+
+新增定义：
+引入关键字： import
+导出关键字： export
+
+模块引入，导出和定义的地方：
+
+```js
+import dependecyModule1 from './dependecyModule1.js';
+import dependecyModule2 from './dependecyModule2.js';
+
+//处理部分
+let count = 0;
+const increase=()=> ++count;
+const reset = ()=>{
+  count = 0;
+}
+
+//导出区域
+export default {
+  increase, reset
+}
+```
+
+模版引入地方：
+
+```js
+<script type='module' src='esModule.js'></script>
+```
+
+node 中：
+```js
+import {increase, reset} from './esModule.mjs'
+increase();
+reset();
+
+
+import esModule from '.exModule.mjs';
+esModule.increase();
+esModule.rese();
+
+```
+
+**面试题：动态模块怎么办？**
+考察： export promise
+
+ES11原生解决方案：
+```js
+import('./esModule.js').then(dynamicEsModule =>{
+  dynamicEsModule.increase();
+})
+```
+
+
+> * 优点（重要性）： 通过一种最统一的形态整合了JS模块化
+* 缺点（局限性）：本质上还是运行时的依赖分析
+
+---
+### 解决模块化的新思路 - 前端工程化
+
+#### 出现的背景
+之前的模块化的根本问题： 运行时进行依赖分析，导致前端的
+> 前端的模块化依赖于运行时分析
+
+解决方案：线下执行
+grunt gulp webpack
+
+```js
+<!DOCTYPE HTML>
+<script src='main.js'></script>
+<script>
+//给结构工具一个标识为
+require.config(__FRAME_CONFIG__);
+</script>
+<script>
+//给结构工具一个标识为
+require(['a','d'],()=>{
+  业务处理
+})
+</script>
+</HTML>
+```
+
+```js
+define('a', ()=>{
+  let  b= require('b');
+  let  c= require('c');
+
+  export.run = (){
+    //run
+  }
+})
+```
+#### 工程化实现过程
+1. 扫描依赖关系表:
+```js
+{
+  a:['b','c'],
+  b: ['d'],
+  e:[]
+}
+```
+
+2. 重新生成依赖数据模版
+```js
+<!DOCTYPE HTML>
+<script src='main.js'></script>
+<script>
+//构建工具生成数据
+require.config('deps':{
+  a:['b','c'],
+  b: ['d'],
+  e:[]
+});
+</script>
+<script>
+//给结构工具一个标识为
+require(['a','d'],()=>{
+  业务处理
+})
+</script>
+</HTML>
+```
+
+3. 执行工具，采用模块化方案解决模块化处理依赖
+
+  ```js
+  define('a',['b','c'],()=>{
+    //执行代码
+    export.run=()=>{}
+  })
+  ```
+
+> * 优点：
+  1. 构建时生成配置，运行时执行
+  2. 最终转化成执行处理依赖
+  3. 可拓展
+---
+### 完全体 webpack 为核心的工程化 + mvvm框架组件化 + 设计模式
 
 
 
