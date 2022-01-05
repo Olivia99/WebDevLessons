@@ -1,10 +1,30 @@
 # 变量，作用域和内存
 
 
+## 什么是函数
+一次封装（定义），四处使用（调用）
+
 ---
 ## 什么是变量
 什么是数据：4， ‘str’ ， true ， {} []
 保存数据的容器就是变量
+
+变量基本类型：4 'str' true/false undefined null
+
+引用类型：{} []
+
+* 区别：
+基本类型的值是不可修改的，引用类型的值是可以修改的
+
+### 数据保存 -- 堆栈
+
+栈内存是有序保存的，缺点是内存有限
+堆内存是无序排列的，空间大小不固定
+
+基本类型要保存在栈内存中
+引用类型要保存在堆内存中
+
+因为引用类型是无序的，所以我们需要知道地址。我们可以通过在栈内保存地址的方法去访问堆内存中的数据
 
 ### 变量是如何命名的
 1. 可以用： 26个英文字母， 数字（数字不能开头）， $ ， _
@@ -29,7 +49,7 @@ var xhScore=4，
 ```
 
 
-## 变量作用域
+### 变量作用域
 1. 全局变量
 2. 局部变量
 * 在函数内部可以直接读取全局变量
@@ -45,6 +65,7 @@ function f2(){
 }
 alert(n)// n undefined
 ```
+
 
 ---
 ## 什么是闭包
@@ -180,10 +201,62 @@ var pattern = /coding/img；
 
 ---
 ## JavaScript中的面向对象（oop）: 对代码的一种抽象，对外统一提供调用接口的编程思想
-1. 声明对象
+###  声明对象
   1. 字面式声明
+
+  ```js
+
+  var obj = {
+    属性名称: 属性值，
+    属性名称 : 属性值，
+    属性名称 : 属性值，
+
+    方法名称: function(){},
+    方法名称: function(){},
+  }
+  ```
+
   2. New
+
+  ```js
+  //object 是所有对象的基类、根， 所有的JavaScript对象都是由Object 延伸的
+  var obj = new Object();
+  obj.属性 = 属性值；
+  obj.属性 = 属性值；
+
+  obj.方法 = function(str){
+    方法代码
+  }
+  ```
+
   3. 构造方法声明
+
+  ```js
+  function test([参数列表]){
+    this.属性 = 属性值；
+    this.方法 = function(){
+      方法代码
+    }
+  }
+
+  var obj = new test(参数列表)；
+
+  ```
+
+  ```js
+  function person(name, sex, age){
+    this.name = name;
+    this.sex = sex;
+    this.age = age;
+    this.show= function (){
+      alert(this.name + this.sex +this.age);
+    }
+  }
+
+  var obj1 = new person("Nathan", "Male", 26);
+  //alert(obj1.sex);
+  // obj1.show();
+  ```
   4. 工厂方法声明
   5. 原型模式声明
   6. 混合模式声明
