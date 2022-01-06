@@ -198,6 +198,18 @@ var pattern = /coding/img；
 
 ```
 
+### 转义字符
+// \
+
+```js
+var str ='//我是注释'；
+var pattern = /\/\//;
+
+\n 反斜杠n 是换行;
+\t Tab
+
+
+```
 
 ---
 ## JavaScript中的面向对象（oop）: 对代码的一种抽象，对外统一提供调用接口的编程思想
@@ -258,6 +270,35 @@ var pattern = /coding/img；
   // obj1.show();
   ```
   4. 工厂方法声明
+
+  ```js
+  function createObj (name, age){
+    var obj = new Object();
+
+    obj.name = name;
+    obj.age = age;
+
+    obj.sayName = function(){
+      console.log("the name is " + this.name);
+    };
+
+    obj.run = function(){
+      console.log(this.name + '---'+ this.age );
+    }
+
+    return obj;
+  }
+
+  var person1 = createObj('Tom', 24);
+
+  person1.run();
+
+  ```
+  构造函数和工厂模式对比
+  * 构造： 不会显示创建对象， 用this 赋值，不需要return obj对象
+  * 工厂： 在方法内部创建obj对象，需要返回obj对象
+
+
   5. 原型模式声明
   6. 混合模式声明
 2. 封装·原型·原型链
